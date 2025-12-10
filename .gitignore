@@ -1,3 +1,13 @@
-materials/
+# This is kind of a strange gitignore because I'm using it to exclude files that
+# I don't want to submit in the final project submission. Some of these might be
+# things I actually want to include once I make this project open source.
 
+# Project Specific Editor Settings
+.vscode/
+.zed/
+
+# Compiled Java files
 *.class
+
+# Mac OS X
+.DS_Store
