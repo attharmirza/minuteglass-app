@@ -18,7 +18,7 @@ public class Granule extends JPanel {
     /**
      * All the possible states of a row.
      */
-    public enum State {
+    public static enum State {
         EMPTY, FILLED, BLANK
     }
 
@@ -37,13 +37,13 @@ public class Granule extends JPanel {
 
         switch (currentState) {
             case EMPTY:
-                this.setBackground(Color.GRAY);
-                break;
-            case FILLED:
                 this.setBackground(Color.BLACK);
                 break;
+            case FILLED:
+                this.setBackground(Color.GRAY);
+                break;
             case BLANK:
-                this.setBackground(Color.WHITE);
+                this.setBackground(Theme.BACKGROUND_COLOR);
                 break;
         }
 
