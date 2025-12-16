@@ -38,6 +38,11 @@ public class Bulb extends JPanel {
     private static int[] funnelShape = { 19, 15, 9, 5, 3, 1 };
 
     /**
+     * All Row classes in the bulb
+     */
+    private Row[] rows = new Row[Bulb.bulbHeight];
+
+    /**
      * Creates an hourglass "bulb" of the predecided dimensions, set using static
      * variables.
      *
@@ -113,11 +118,14 @@ public class Bulb extends JPanel {
     private void createTopBulb() {
         for (int i = 0; i < Bulb.bulbHeight; i++) {
             int rowCapacity;
+            Row rowToBeAdded;
 
             if (i > Bulb.bulbHeight - funnelShape.length - 1) {
                 rowCapacity = funnelShape[i + funnelShape.length - Bulb.bulbHeight];
 
-                this.add(new Row(rowCapacity, Granule.State.FILLED));
+                rowToBeAdded = new Row(rowCapacity, Granule.State.FILLED);
+                rows[i] = rowToBeAdded;
+                this.add(rowToBeAdded);
 
                 Bulb.totalSand += rowCapacity;
 
@@ -126,7 +134,9 @@ public class Bulb extends JPanel {
 
             rowCapacity = Bulb.bulbWidth;
 
-            this.add(new Row(rowCapacity, Granule.State.FILLED));
+            rowToBeAdded = new Row(rowCapacity, Granule.State.FILLED);
+            rows[i] = rowToBeAdded;
+            this.add(rowToBeAdded);
 
             Bulb.totalSand += rowCapacity;
         }
@@ -139,20 +149,36 @@ public class Bulb extends JPanel {
     private void createBottomBulb() {
         for (int i = 0; i < Bulb.bulbHeight; i++) {
             int rowCapacity;
+            Row rowToBeAdded;
 
             if (i < funnelShape.length) {
                 rowCapacity = funnelShape[funnelShape.length - i - 1];
 
-                Row emptyRow = new Row(rowCapacity, Granule.State.EMPTY);
-                this.add(emptyRow);
+                rowToBeAdded = new Row(rowCapacity, Granule.State.EMPTY);
+                rows[i] = rowToBeAdded;
+                this.add(rowToBeAdded);
 
                 continue;
             }
 
             rowCapacity = bulbWidth;
 
-            Row emptyRow = new Row(rowCapacity, Granule.State.EMPTY);
-            this.add(emptyRow);
+            rowToBeAdded = new Row(rowCapacity, Granule.State.EMPTY);
+            rows[i] = rowToBeAdded;
+            this.add(rowToBeAdded);
+
+            Bulb.totalSand += rowCapacity;
+        }
+    }
+
+    /**
+     * Empty the bulb.
+     */
+    public void empty() {
+        for (Row row : rows) {
+            for (int i = 0; i < Bulb.bulbWidth; i++) {
+                row.removeGranule();
+            }
         }
     }
 }

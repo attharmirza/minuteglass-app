@@ -20,14 +20,12 @@ public class Glass extends JFrame {
         this.setLayout(new BorderLayout());
 
         JPanel center = new JPanel();
-        center.setLayout(new GridLayout(2, 1));
+        center.setLayout(new GridLayout(2, 1, 0, 0));
         center.add(new Bulb(Bulb.Position.TOP));
         center.add(new Bulb(Bulb.Position.BOTTOM));
         center.setBackground(Theme.BACKGROUND);
         center.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         this.add(center, BorderLayout.CENTER);
-
-        System.out.println("Total sand: " + Bulb.getTotalSand());
     }
 }

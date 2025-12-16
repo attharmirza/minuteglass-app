@@ -48,4 +48,13 @@ public class Granule extends JPanel {
 
         repaint();
     }
+
+    /**
+     * Method for getting the state of the row.
+     *
+     * @return The current state of the row.
+     */
+    public State getState() {
+        return currentState;
+    }
 }
