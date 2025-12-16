@@ -24,7 +24,7 @@ public class Glass extends JFrame {
      * An array of integers representing the shape of the MinuteGlass funnel. It
      * must be an array of odd numbers.
      */
-    private int[] funnelShape = { 15, 9, 5, 3, 1 };
+    private int[] funnelShape = { 19, 15, 9, 5, 3, 1 };
 
     /**
      * Total amound of sand granules in the minuteglass.
@@ -45,7 +45,7 @@ public class Glass extends JFrame {
         JPanel center = new JPanel();
         center.setLayout(new GridBagLayout());
         center.add(new RowContainer(bulbHeight));
-        center.setBackground(Theme.BACKGROUND_COLOR);
+        center.setBackground(Theme.BACKGROUND);
 
         this.add(center, BorderLayout.CENTER);
 
@@ -72,7 +72,7 @@ public class Glass extends JFrame {
         public RowContainer(int rows) {
             this.setPreferredSize(new Dimension(200, 400));
             this.setLayout(new GridLayout(rows * 2, 1, 0, 5));
-            this.setBackground(Theme.BACKGROUND_COLOR);
+            this.setBackground(Theme.BACKGROUND);
 
             try {
                 createBulb(Direction.BOTTOM, rows);
@@ -98,7 +98,7 @@ public class Glass extends JFrame {
 
                 if (direction == Direction.BOTTOM) {
                     if (i > bulbRows - funnelShape.length) {
-                        temp = funnelShape[i + funnelShape.length - bulbRows];
+                        temp = funnelShape[i + funnelShape.length - bulbRows - 1];
 
                         this.add(new Row(temp));
 

@@ -36,7 +36,7 @@ public class Row extends JPanel {
      */
     public Row(int size) {
         this.setLayout(new GridLayout(1, maxSize, 5, 0));
-        this.setBackground(Theme.BACKGROUND_COLOR);
+        this.setBackground(Theme.BACKGROUND);
         this.setOpaque(true);
 
         this.setSize(size);
