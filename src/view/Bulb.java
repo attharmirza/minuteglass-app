@@ -172,6 +172,36 @@ public class Bulb extends JPanel {
     }
 
     /**
+     * Algorithm for removing a single granule from the bulb, useful for
+     * incrementing the timer one grain of sand at a time.
+     */
+    public void removeGranule() {
+        for (int i = 0; i < rows.length; i++) {
+            if (rows[i].getState() == Row.State.EMPTY) {
+                continue;
+            }
+
+            rows[i].removeGranule();
+            return;
+        }
+    }
+
+    /**
+     * Algorithm for adding a single granule to the bulb, useful for
+     * incrementing the timer one grain of sand at a time.
+     */
+    public void addGranule() {
+        for (int i = rows.length - 1; i > 0; i--) {
+            if (rows[i].getState() == Row.State.FILLED) {
+                continue;
+            }
+
+            rows[i].addGranule();
+            return;
+        }
+    }
+
+    /**
      * Empty the bulb.
      */
     public void empty() {
@@ -189,7 +219,7 @@ public class Bulb extends JPanel {
     }
 
     /**
-     * Empty the bulb.
+     * Fill the bulb.
      */
     public void fill() {
         for (int i = rows.length - 1; i >= 0; i--) {

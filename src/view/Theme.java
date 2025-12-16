@@ -10,6 +10,6 @@ import java.awt.*;
  */
 public class Theme {
     public static final Color BACKGROUND = new Color(21, 78, 148);
-    public static final Color SAND_ON = new Color(255, 241, 186);
+    public static final Color SAND_ON = new Color(201, 44, 89);
     public static final Color SAND_OFF = new Color(62, 120, 191);
 }

@@ -39,8 +39,19 @@ public class Glass extends JFrame {
         this.add(center, BorderLayout.CENTER);
     }
 
+    /**
+     * Starts the sand moving through the MinuteGlass.
+     */
     public void startAnimation() {
-        topBulb.empty();
-        bottomBulb.fill();
+        for (int i = 0; i < Bulb.getTotalSand(); i++) {
+            topBulb.removeGranule();
+            bottomBulb.addGranule();
+
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
