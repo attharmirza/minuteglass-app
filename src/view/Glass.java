@@ -13,17 +13,18 @@ public class Glass extends JFrame {
      * color, sized at 500x500 pixels.
      */
     public Glass() {
-        this.setSize(500, 500);
-        this.setAlwaysOnTop(false);
-        this.setLocation(20, 20);
+        this.setSize(250, 500);
+        this.setResizable(false);
+        this.setLocation(40, 40);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
         JPanel center = new JPanel();
-        center.setLayout(new GridBagLayout());
+        center.setLayout(new GridLayout(2, 1));
         center.add(new Bulb(Bulb.Position.TOP));
         center.add(new Bulb(Bulb.Position.BOTTOM));
         center.setBackground(Theme.BACKGROUND);
+        center.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         this.add(center, BorderLayout.CENTER);
 

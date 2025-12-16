@@ -24,7 +24,7 @@ public class Bulb extends JPanel {
      * it to always be an even number. This will get multiplied by 2 to get the
      * total number of rows.
      */
-    private static int bulbHeight = 20;
+    private static int bulbHeight = 21;
 
     /**
      * Number of granules in each row of the bulbs, should always be an odd number.
@@ -87,23 +87,48 @@ public class Bulb extends JPanel {
     }
 
     /**
+     * Set bulb dimensions.
+     *
+     * @param height The height of the bulb, i.e. the number of rows.
+     * @param width  The width of the bulb, i.e. the number of granules per row.
+     */
+    public static void setBulbDimensions(int height, int width) {
+        bulbHeight = height;
+        bulbWidth = width;
+    }
+
+    /**
+     * Get bulb dimensions.
+     *
+     * @return An array containing the width and height of the bulb, in that order.
+     */
+    public static int[] getBulbDimensions() {
+        return new int[] { bulbWidth, bulbHeight };
+    }
+
+    /**
      * Create a bulb where the rows get smaller near the bottom so that the funnel
      * tightens near the bottom.
      */
     private void createTopBulb() {
         for (int i = 0; i < Bulb.bulbHeight; i++) {
-            int temp;
+            int rowCapacity;
 
-            if (i > Bulb.bulbHeight - funnelShape.length) {
-                temp = funnelShape[i + funnelShape.length - Bulb.bulbHeight - 1];
+            if (i > Bulb.bulbHeight - funnelShape.length - 1) {
+                rowCapacity = funnelShape[i + funnelShape.length - Bulb.bulbHeight];
 
-                this.add(new Row(temp));
+                this.add(new Row(rowCapacity, Granule.State.FILLED));
+
+                Bulb.totalSand += rowCapacity;
+
                 continue;
             }
 
-            temp = Bulb.bulbWidth;
+            rowCapacity = Bulb.bulbWidth;
 
-            this.add(new Row(temp));
+            this.add(new Row(rowCapacity, Granule.State.FILLED));
+
+            Bulb.totalSand += rowCapacity;
         }
     }
 
@@ -113,19 +138,21 @@ public class Bulb extends JPanel {
      */
     private void createBottomBulb() {
         for (int i = 0; i < Bulb.bulbHeight; i++) {
-            int temp;
+            int rowCapacity;
 
             if (i < funnelShape.length) {
-                temp = funnelShape[funnelShape.length - i - 1];
+                rowCapacity = funnelShape[funnelShape.length - i - 1];
 
-                this.add(new Row(temp));
+                Row emptyRow = new Row(rowCapacity, Granule.State.EMPTY);
+                this.add(emptyRow);
 
                 continue;
             }
 
-            temp = bulbWidth;
+            rowCapacity = bulbWidth;
 
-            this.add(new Row(temp));
+            Row emptyRow = new Row(rowCapacity, Granule.State.EMPTY);
+            this.add(emptyRow);
         }
     }
 }
