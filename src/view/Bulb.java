@@ -166,8 +166,6 @@ public class Bulb extends JPanel {
             rowToBeAdded = new Row(rowCapacity, Row.State.EMPTY);
             rows[i] = rowToBeAdded;
             this.add(rowToBeAdded);
-
-            Bulb.totalSand += rowCapacity;
         }
     }
 
@@ -191,7 +189,7 @@ public class Bulb extends JPanel {
      * incrementing the timer one grain of sand at a time.
      */
     public void addGranule() {
-        for (int i = rows.length - 1; i > 0; i--) {
+        for (int i = rows.length - 1; i >= 0; i--) {
             if (rows[i].getState() == Row.State.FILLED) {
                 continue;
             }
@@ -210,7 +208,7 @@ public class Bulb extends JPanel {
                 row.removeGranule();
 
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -227,7 +225,7 @@ public class Bulb extends JPanel {
                 rows[i].addGranule();
 
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

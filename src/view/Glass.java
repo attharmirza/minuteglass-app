@@ -28,6 +28,8 @@ public class Glass extends JFrame {
         this.setLocation(40, 40);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
+        this.setName("MinuteGlass");
+        this.setVisible(true);
 
         JPanel center = new JPanel();
         center.setLayout(new GridLayout(2, 1, 0, 0));
@@ -40,18 +42,18 @@ public class Glass extends JFrame {
     }
 
     /**
-     * Starts the sand moving through the MinuteGlass.
+     * Moves a sand granule from the top bulb to the bottom bulb.
      */
-    public void startAnimation() {
-        for (int i = 0; i < Bulb.getTotalSand(); i++) {
-            topBulb.removeGranule();
-            bottomBulb.addGranule();
+    public void moveGranule() {
+        topBulb.removeGranule();
+        bottomBulb.addGranule();
+    }
 
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    /**
+     * Method for resetting the state of the MinuteGlass to empty.
+     */
+    public void reset() {
+        bottomBulb.empty();
+        topBulb.fill();
     }
 }

@@ -6,15 +6,26 @@ package model;
  * remaining.
  */
 public class Timer {
+    /**
+     * Total time in milliseconds.
+     */
     private int totalTime;
+
+    /**
+     * Remaining time in milliseconds.
+     */
     private int remainingTime;
+
+    /**
+     * Listener that is notified when the timer ticks.
+     */
+    private TimerListener tickListener;
 
     /**
      * No argument constructor, initializes the Timer to 5 minutes.
      */
     public Timer() {
-        this.totalTime = 5 * 60 * 1000;
-        this.remainingTime = this.totalTime;
+        this(5 * 60 * 1000);
     }
 
     /**
@@ -32,8 +43,7 @@ public class Timer {
      * milliseconds.
      */
     public Timer(int seconds, int milliseconds) {
-        this.totalTime = seconds * 1000 + milliseconds;
-        this.remainingTime = this.totalTime;
+        this(seconds * 1000 + milliseconds);
     }
 
     /**
@@ -41,8 +51,14 @@ public class Timer {
      * seconds.
      */
     public Timer(int minutes, int seconds, int milliseconds) {
-        this.totalTime = minutes * 60 * 1000 + seconds * 1000 + milliseconds;
-        this.remainingTime = this.totalTime;
+        this(minutes * 60 * 1000 + seconds * 1000 + milliseconds);
+    }
+
+    /**
+     * Set the tick listener for the timer.
+     */
+    public void setTickListener(TimerListener listener) {
+        this.tickListener = listener;
     }
 
     /**
@@ -56,6 +72,10 @@ public class Timer {
 
         while (remainingTime > 0) {
             remainingTime -= interval;
+
+            if (tickListener != null) {
+                tickListener.onTick();
+            }
 
             try {
                 Thread.sleep(interval);
