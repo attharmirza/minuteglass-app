@@ -41,5 +41,6 @@ public class Glass extends JFrame {
 
     public void startAnimation() {
         topBulb.empty();
+        bottomBulb.fill();
     }
 }

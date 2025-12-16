@@ -187,4 +187,21 @@ public class Bulb extends JPanel {
             }
         }
     }
+
+    /**
+     * Empty the bulb.
+     */
+    public void fill() {
+        for (int i = rows.length - 1; i >= 0; i--) {
+            while (rows[i].getState() != Row.State.FILLED) {
+                rows[i].addGranule();
+
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

@@ -169,6 +169,7 @@ public class Row extends JPanel {
 
         if (Math.abs(this.lastCheckDistance) > size / 2) {
             this.setState(Row.State.EMPTY);
+            this.lastCheckDistance = 0;
             return;
         }
 
@@ -210,6 +211,62 @@ public class Row extends JPanel {
                 this.granules[checkIndexA].setState(Granule.State.EMPTY);
             } else {
                 this.granules[checkIndexB].setState(Granule.State.EMPTY);
+            }
+        }
+    }
+
+    /**
+     * Add a granule.
+     */
+    public void addGranule() {
+        if (this.currentState == Row.State.FILLED) {
+            return;
+        }
+
+        if (Math.abs(this.lastCheckDistance) > size / 2) {
+            this.setState(Row.State.FILLED);
+            this.lastCheckDistance = 0;
+            return;
+        }
+
+        this.setState(Row.State.PARTIAL);
+
+        int centerIndex = maxSize / 2;
+        int checkIndexA = this.lastCheckDistance + centerIndex;
+        int checkIndexB = (this.lastCheckDistance * -1) + centerIndex;
+
+        if (lastCheckDistance == 0) {
+            this.granules[centerIndex].setState(Granule.State.FILLED);
+
+            if (Math.random() >= 0.5)
+                this.lastCheckDistance = 1;
+            else
+                this.lastCheckDistance = -1;
+            return;
+        }
+
+        Granule.State stateSideA = this.granules[checkIndexA].getState();
+        Granule.State stateSideB = this.granules[checkIndexB].getState();
+
+        if (stateSideA == Granule.State.FILLED && stateSideB == Granule.State.FILLED) {
+            if (Math.random() >= 0.5) {
+                this.lastCheckDistance = Math.abs(this.lastCheckDistance) + 1;
+            } else {
+                this.lastCheckDistance = -Math.abs(this.lastCheckDistance) - 1;
+            }
+
+            addGranule();
+        }
+
+        if (stateSideA == Granule.State.FILLED) {
+            this.granules[checkIndexB].setState(Granule.State.FILLED);
+        } else if (stateSideB == Granule.State.FILLED) {
+            this.granules[checkIndexA].setState(Granule.State.FILLED);
+        } else {
+            if (Math.random() >= 0.5) {
+                this.granules[checkIndexA].setState(Granule.State.FILLED);
+            } else {
+                this.granules[checkIndexB].setState(Granule.State.FILLED);
             }
         }
     }
