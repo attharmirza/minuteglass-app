@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * A single "sand granule," which when placed together form a row for the
@@ -37,16 +36,25 @@ public class Granule extends JPanel {
 
         switch (currentState) {
             case EMPTY:
-                this.setBackground(Color.BLACK);
+                this.setBackground(Theme.SAND_OFF);
                 break;
             case FILLED:
-                this.setBackground(Color.GRAY);
+                this.setBackground(Theme.SAND_ON);
                 break;
             case BLANK:
-                this.setBackground(Theme.BACKGROUND_COLOR);
+                this.setBackground(Theme.BACKGROUND);
                 break;
         }
 
         repaint();
+    }
+
+    /**
+     * Method for getting the state of the row.
+     *
+     * @return The current state of the row.
+     */
+    public State getState() {
+        return currentState;
     }
 }
