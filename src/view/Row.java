@@ -58,14 +58,18 @@ public class Row extends JPanel {
      *
      * @param size The number of granules to add to the row.
      */
-    public Row(int size, Granule.State initialState) {
+    public Row(int size, Row.State initialState) {
         this.setLayout(new GridLayout(1, maxSize, 5, 0));
         this.setBackground(Theme.BACKGROUND);
         this.setOpaque(true);
 
         this.setSize(size);
 
-        this.setRowState(initialState);
+        if (initialState == Row.State.EMPTY) {
+            this.emptyRow();
+        } else if (initialState == Row.State.FILLED) {
+            this.fillRow();
+        }
 
         for (Granule granule : granules) {
             this.add(granule);
@@ -135,7 +139,7 @@ public class Row extends JPanel {
      *
      * @param state
      */
-    public State getState(State state) {
+    public State getState() {
         return currentState;
     }
 
@@ -163,7 +167,7 @@ public class Row extends JPanel {
             return;
         }
 
-        if (Math.abs(this.lastCheckDistance) > maxSize / 2) {
+        if (Math.abs(this.lastCheckDistance) > size / 2) {
             this.setState(Row.State.EMPTY);
             return;
         }
@@ -201,6 +205,12 @@ public class Row extends JPanel {
             this.granules[checkIndexB].setState(Granule.State.EMPTY);
         } else if (stateSideB == Granule.State.EMPTY) {
             this.granules[checkIndexA].setState(Granule.State.EMPTY);
+        } else {
+            if (Math.random() >= 0.5) {
+                this.granules[checkIndexA].setState(Granule.State.EMPTY);
+            } else {
+                this.granules[checkIndexB].setState(Granule.State.EMPTY);
+            }
         }
     }
 }

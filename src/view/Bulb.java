@@ -54,9 +54,9 @@ public class Bulb extends JPanel {
         this.setBackground(Theme.BACKGROUND);
 
         if (position == Position.BOTTOM) {
-            createBottomBulb();
+            this.createBottomBulb();
         } else {
-            createTopBulb();
+            this.createTopBulb();
         }
     }
 
@@ -123,7 +123,7 @@ public class Bulb extends JPanel {
             if (i > Bulb.bulbHeight - funnelShape.length - 1) {
                 rowCapacity = funnelShape[i + funnelShape.length - Bulb.bulbHeight];
 
-                rowToBeAdded = new Row(rowCapacity, Granule.State.FILLED);
+                rowToBeAdded = new Row(rowCapacity, Row.State.FILLED);
                 rows[i] = rowToBeAdded;
                 this.add(rowToBeAdded);
 
@@ -134,7 +134,7 @@ public class Bulb extends JPanel {
 
             rowCapacity = Bulb.bulbWidth;
 
-            rowToBeAdded = new Row(rowCapacity, Granule.State.FILLED);
+            rowToBeAdded = new Row(rowCapacity, Row.State.FILLED);
             rows[i] = rowToBeAdded;
             this.add(rowToBeAdded);
 
@@ -154,7 +154,7 @@ public class Bulb extends JPanel {
             if (i < funnelShape.length) {
                 rowCapacity = funnelShape[funnelShape.length - i - 1];
 
-                rowToBeAdded = new Row(rowCapacity, Granule.State.EMPTY);
+                rowToBeAdded = new Row(rowCapacity, Row.State.EMPTY);
                 rows[i] = rowToBeAdded;
                 this.add(rowToBeAdded);
 
@@ -163,7 +163,7 @@ public class Bulb extends JPanel {
 
             rowCapacity = bulbWidth;
 
-            rowToBeAdded = new Row(rowCapacity, Granule.State.EMPTY);
+            rowToBeAdded = new Row(rowCapacity, Row.State.EMPTY);
             rows[i] = rowToBeAdded;
             this.add(rowToBeAdded);
 
@@ -176,8 +176,14 @@ public class Bulb extends JPanel {
      */
     public void empty() {
         for (Row row : rows) {
-            for (int i = 0; i < Bulb.bulbWidth; i++) {
+            while (row.getState() != Row.State.EMPTY) {
                 row.removeGranule();
+
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
