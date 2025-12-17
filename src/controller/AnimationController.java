@@ -35,7 +35,7 @@ public class AnimationController implements TimerListener {
      * The total number of intervals will always be equal to the total capacity of
      * the MinuteGlass.
      */
-    private int totalTimerIntervals = Bulb.getTotalSand();
+    private int totalTimerIntervals;
 
     /**
      * Single argument constructor for AnimationController, initializes it with a
@@ -78,7 +78,11 @@ public class AnimationController implements TimerListener {
      * Start the minuteglass animation.
      */
     public void startAnimation() {
+        System.out.println("Total sand: " + Bulb.getTotalSand());
+
         this.timer.setTickListener(this);
+
+        this.totalTimerIntervals = Bulb.getTotalSand();
 
         this.timer.startTimer(totalTimerIntervals);
     }
@@ -89,6 +93,6 @@ public class AnimationController implements TimerListener {
     public void onTick() {
         glass.moveGranule();
 
-        System.out.println(timer.getRemainingTimeAsString());
+        // System.out.println(timer.getRemainingTimeAsString());
     }
 }

@@ -79,10 +79,10 @@ public class Timer {
      * @param pieces The number of intervals to chop the timer into.
      */
     public void startTimer(int pieces) {
-        int interval = totalTime / pieces;
+        int interval = this.totalTime / pieces;
 
-        while (remainingTime > 0) {
-            remainingTime -= interval;
+        for (int i = 0; i < pieces; i++) {
+            this.remainingTime -= interval;
 
             if (tickListener != null) {
                 tickListener.onTick();
@@ -94,5 +94,7 @@ public class Timer {
                 Thread.currentThread().interrupt();
             }
         }
+
+        remainingTime = 0;
     }
 }

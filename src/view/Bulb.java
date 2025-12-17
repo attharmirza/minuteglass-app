@@ -88,7 +88,7 @@ public class Bulb extends JPanel {
      * Get the total sand in the MinuteGlass.
      */
     public static int getTotalSand() {
-        return totalSand;
+        return Bulb.totalSand;
     }
 
     /**
@@ -127,7 +127,7 @@ public class Bulb extends JPanel {
                 rows[i] = rowToBeAdded;
                 this.add(rowToBeAdded);
 
-                Bulb.totalSand += rowCapacity;
+                Bulb.totalSand = rowCapacity + Bulb.totalSand;
 
                 continue;
             }
@@ -138,7 +138,7 @@ public class Bulb extends JPanel {
             rows[i] = rowToBeAdded;
             this.add(rowToBeAdded);
 
-            Bulb.totalSand += rowCapacity;
+            Bulb.totalSand = rowCapacity + Bulb.totalSand;
         }
     }
 
@@ -161,7 +161,7 @@ public class Bulb extends JPanel {
                 continue;
             }
 
-            rowCapacity = bulbWidth;
+            rowCapacity = Bulb.bulbWidth;
 
             rowToBeAdded = new Row(rowCapacity, Row.State.EMPTY);
             rows[i] = rowToBeAdded;
