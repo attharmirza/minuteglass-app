@@ -88,5 +88,7 @@ public class AnimationController implements TimerListener {
      */
     public void onTick() {
         glass.moveGranule();
+
+        System.out.println(timer.getRemainingTimeAsString());
     }
 }
