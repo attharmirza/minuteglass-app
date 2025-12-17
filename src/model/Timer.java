@@ -58,13 +58,11 @@ public class Timer {
      * Get remaining time as a nice string.
      */
     public String getRemainingTimeAsString() {
-        float seconds = remainingTime / 1000;
+        int totalSeconds = remainingTime / 1000;
+        int minutes = totalSeconds / 60;
+        float seconds = totalSeconds % 60 + (remainingTime % 1000) / 1000f;
 
-        int minutes = (int) seconds / 60;
-
-        seconds %= 60;
-
-        return String.format("%02d:%05.3f", minutes, seconds);
+        return String.format("Remaining time: %02d:%06.3f", minutes, seconds);
     }
 
     /**
