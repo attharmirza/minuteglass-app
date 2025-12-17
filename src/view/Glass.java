@@ -9,12 +9,12 @@ import java.awt.*;
  */
 public class Glass extends JFrame {
     /**
-     * The upper bulb of the MinuteGlass.
+     * The upper bulb of the Minuteglass.
      */
     private Bulb topBulb = new Bulb(Bulb.Position.TOP);
 
     /**
-     * The lower bulb of the MinuteGlass.
+     * The lower bulb of the Minuteglass.
      */
     private Bulb bottomBulb = new Bulb(Bulb.Position.BOTTOM);
 
@@ -28,7 +28,7 @@ public class Glass extends JFrame {
         this.setLocation(40, 40);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.setName("MinuteGlass");
+        this.setName("Minuteglass");
         this.setVisible(true);
 
         JPanel center = new JPanel();
@@ -50,7 +50,7 @@ public class Glass extends JFrame {
     }
 
     /**
-     * Method for resetting the state of the MinuteGlass to empty.
+     * Method for resetting the state of the Minuteglass to empty.
      */
     public void reset() {
         bottomBulb.empty();

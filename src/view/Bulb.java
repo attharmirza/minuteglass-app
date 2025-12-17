@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Represents one of two bulbs in the MinuteGlass.
+ * Represents one of two bulbs in the Minuteglass.
  */
 public class Bulb extends JPanel {
     /**
@@ -15,7 +15,7 @@ public class Bulb extends JPanel {
     }
 
     /**
-     * Total amound of sand granules in the MinuteGlass.
+     * Total amound of sand granules in the Minuteglass.
      */
     private static int totalSand = 0;
 
@@ -32,7 +32,7 @@ public class Bulb extends JPanel {
     private static int bulbWidth = 21;
 
     /**
-     * An array of integers representing the shape of the MinuteGlass funnel. It
+     * An array of integers representing the shape of the Minuteglass funnel. It
      * must be an array of odd numbers.
      */
     private static int[] funnelShape = { 19, 15, 9, 5, 3, 1 };
@@ -85,10 +85,10 @@ public class Bulb extends JPanel {
     }
 
     /**
-     * Get the total sand in the MinuteGlass.
+     * Get the total sand in the Minuteglass.
      */
     public static int getTotalSand() {
-        return totalSand;
+        return Bulb.totalSand;
     }
 
     /**
@@ -116,18 +116,20 @@ public class Bulb extends JPanel {
      * tightens near the bottom.
      */
     private void createTopBulb() {
+        Bulb.totalSand = 0;
+
         for (int i = 0; i < Bulb.bulbHeight; i++) {
             int rowCapacity;
             Row rowToBeAdded;
 
-            if (i > Bulb.bulbHeight - funnelShape.length - 1) {
+            if (i >= Bulb.bulbHeight - funnelShape.length) {
                 rowCapacity = funnelShape[i + funnelShape.length - Bulb.bulbHeight];
 
                 rowToBeAdded = new Row(rowCapacity, Row.State.FILLED);
                 rows[i] = rowToBeAdded;
                 this.add(rowToBeAdded);
 
-                Bulb.totalSand += rowCapacity;
+                Bulb.totalSand = rowCapacity + Bulb.totalSand;
 
                 continue;
             }
@@ -138,7 +140,7 @@ public class Bulb extends JPanel {
             rows[i] = rowToBeAdded;
             this.add(rowToBeAdded);
 
-            Bulb.totalSand += rowCapacity;
+            Bulb.totalSand = rowCapacity + Bulb.totalSand;
         }
     }
 
@@ -161,7 +163,7 @@ public class Bulb extends JPanel {
                 continue;
             }
 
-            rowCapacity = bulbWidth;
+            rowCapacity = Bulb.bulbWidth;
 
             rowToBeAdded = new Row(rowCapacity, Row.State.EMPTY);
             rows[i] = rowToBeAdded;

@@ -19,7 +19,7 @@ public class Timer {
     /**
      * Listener that is notified when the timer ticks.
      */
-    private TimerListener tickListener;
+    private TimerListener timerListener;
 
     /**
      * No argument constructor, initializes the Timer to 5 minutes.
@@ -59,7 +59,7 @@ public class Timer {
      */
     public String getRemainingTimeAsString() {
         int totalSeconds = remainingTime / 1000;
-        int minutes = totalSeconds / 60;
+        int minutes = (int) totalSeconds / 60;
         float seconds = totalSeconds % 60 + (remainingTime % 1000) / 1000f;
 
         return String.format("Remaining time: %02d:%06.3f", minutes, seconds);
@@ -68,8 +68,8 @@ public class Timer {
     /**
      * Set the tick listener for the timer.
      */
-    public void setTickListener(TimerListener listener) {
-        this.tickListener = listener;
+    public void setTimerListener(TimerListener listener) {
+        this.timerListener = listener;
     }
 
     /**
@@ -79,13 +79,13 @@ public class Timer {
      * @param pieces The number of intervals to chop the timer into.
      */
     public void startTimer(int pieces) {
-        int interval = totalTime / pieces;
+        int interval = this.totalTime / pieces;
 
         while (remainingTime > 0) {
-            remainingTime -= interval;
+            this.remainingTime -= interval;
 
-            if (tickListener != null) {
-                tickListener.onTick();
+            if (timerListener != null) {
+                timerListener.onTick();
             }
 
             try {
@@ -94,5 +94,7 @@ public class Timer {
                 Thread.currentThread().interrupt();
             }
         }
+
+        remainingTime = 0;
     }
 }
