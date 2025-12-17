@@ -27,14 +27,14 @@ public class Granule extends JPanel {
     private State currentState = State.EMPTY;
 
     /**
-     * Method for setting the state of the row, and repainting at the end.
+     * Method for setting the state of the granule, and repainting at the end.
      *
-     * @param state The new state of the row.
+     * @param state The new state of the granule.
      */
     public void setState(State state) {
-        currentState = state;
+        this.currentState = state;
 
-        switch (currentState) {
+        switch (state) {
             case EMPTY:
                 this.setBackground(Theme.SAND_OFF);
                 break;

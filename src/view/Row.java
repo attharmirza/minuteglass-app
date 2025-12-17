@@ -30,22 +30,14 @@ public class Row extends JPanel {
     private int minSize = 1;
 
     /**
+     * The center index of the row.
+     */
+    private int centerIndex = maxSize / 2;
+
+    /**
      * The current size of the row.
      */
     private int size;
-
-    /**
-     * Last granule state check distance, will always be a positive or negative
-     * integer with an absolute value less than `maxSize / 2`.
-     *
-     * This is kind of confusing, but basically the granule removal algorithm
-     * randomly selects a direction to check for granules to remove. The next check
-     * will always be in the opposite direction, with the same distance. So the
-     * algorithm will check this number multiplied by `-1`, before incrementing it.
-     *
-     * This is also initialized to `0`, representing the center of the row.
-     */
-    private int lastCheckDistance = 0;
 
     /**
      * Initializing an array of empty granules to fill the row.
@@ -83,7 +75,7 @@ public class Row extends JPanel {
      * @param size
      * @throws IllegalArgumentException
      */
-    private void setRowState(Granule.State state) {
+    private void setRowGranuleState(Granule.State state) {
         for (int i = 0; i < granules.length; i++) {
             int distanceFromCenter = Math.abs(i - (granules.length / 2));
 
@@ -147,7 +139,7 @@ public class Row extends JPanel {
      * Method for setting the row to empty.
      */
     public void emptyRow() {
-        this.setRowState(Granule.State.EMPTY);
+        this.setRowGranuleState(Granule.State.EMPTY);
         this.setState(Row.State.EMPTY);
     }
 
@@ -155,119 +147,44 @@ public class Row extends JPanel {
      * Method for setting the row to full.
      */
     public void fillRow() {
-        this.setRowState(Granule.State.FILLED);
+        this.setRowGranuleState(Granule.State.FILLED);
         this.setState(Row.State.FILLED);
+    }
+
+    /**
+     * Method for searching through a row from the center out and flipping a granule
+     * to the opposite of the input state.
+     */
+    private void flipGranule(Granule.State targetState) {
+        Granule.State oppositeState = targetState == Granule.State.FILLED ? Granule.State.EMPTY : Granule.State.FILLED;
+
+        for (int i = 0; i < this.granules.length; i++) {
+            Granule granule = this.granules[i];
+
+            if (granule.getState() == targetState) {
+                granule.setState(oppositeState);
+
+                if (i == centerIndex + size / 2) {
+                    this.setState(targetState == Granule.State.FILLED ? Row.State.EMPTY : Row.State.FILLED);
+                    return;
+                }
+
+                return;
+            }
+        }
     }
 
     /**
      * Remove a single granule from the row.
      */
     public void removeGranule() {
-        if (this.currentState == Row.State.EMPTY) {
-            return;
-        }
-
-        if (Math.abs(this.lastCheckDistance) > size / 2) {
-            this.setState(Row.State.EMPTY);
-            this.lastCheckDistance = 0;
-            return;
-        }
-
-        this.setState(Row.State.PARTIAL);
-
-        int centerIndex = maxSize / 2;
-        int checkIndexA = this.lastCheckDistance + centerIndex;
-        int checkIndexB = (this.lastCheckDistance * -1) + centerIndex;
-
-        if (lastCheckDistance == 0) {
-            this.granules[centerIndex].setState(Granule.State.EMPTY);
-
-            if (Math.random() >= 0.5)
-                this.lastCheckDistance = 1;
-            else
-                this.lastCheckDistance = -1;
-            return;
-        }
-
-        Granule.State stateSideA = this.granules[checkIndexA].getState();
-        Granule.State stateSideB = this.granules[checkIndexB].getState();
-
-        if (stateSideA == Granule.State.EMPTY && stateSideB == Granule.State.EMPTY) {
-            if (Math.random() >= 0.5) {
-                this.lastCheckDistance = Math.abs(this.lastCheckDistance) + 1;
-            } else {
-                this.lastCheckDistance = -Math.abs(this.lastCheckDistance) - 1;
-            }
-
-            removeGranule();
-        }
-
-        if (stateSideA == Granule.State.EMPTY) {
-            this.granules[checkIndexB].setState(Granule.State.EMPTY);
-        } else if (stateSideB == Granule.State.EMPTY) {
-            this.granules[checkIndexA].setState(Granule.State.EMPTY);
-        } else {
-            if (Math.random() >= 0.5) {
-                this.granules[checkIndexA].setState(Granule.State.EMPTY);
-            } else {
-                this.granules[checkIndexB].setState(Granule.State.EMPTY);
-            }
-        }
+        flipGranule(Granule.State.FILLED);
     }
 
     /**
      * Add a granule.
      */
     public void addGranule() {
-        if (this.currentState == Row.State.FILLED) {
-            return;
-        }
-
-        if (Math.abs(this.lastCheckDistance) > size / 2) {
-            this.setState(Row.State.FILLED);
-            this.lastCheckDistance = 0;
-            return;
-        }
-
-        this.setState(Row.State.PARTIAL);
-
-        int centerIndex = maxSize / 2;
-        int checkIndexA = this.lastCheckDistance + centerIndex;
-        int checkIndexB = (this.lastCheckDistance * -1) + centerIndex;
-
-        if (lastCheckDistance == 0) {
-            this.granules[centerIndex].setState(Granule.State.FILLED);
-
-            if (Math.random() >= 0.5)
-                this.lastCheckDistance = 1;
-            else
-                this.lastCheckDistance = -1;
-            return;
-        }
-
-        Granule.State stateSideA = this.granules[checkIndexA].getState();
-        Granule.State stateSideB = this.granules[checkIndexB].getState();
-
-        if (stateSideA == Granule.State.FILLED && stateSideB == Granule.State.FILLED) {
-            if (Math.random() >= 0.5) {
-                this.lastCheckDistance = Math.abs(this.lastCheckDistance) + 1;
-            } else {
-                this.lastCheckDistance = -Math.abs(this.lastCheckDistance) - 1;
-            }
-
-            addGranule();
-        }
-
-        if (stateSideA == Granule.State.FILLED) {
-            this.granules[checkIndexB].setState(Granule.State.FILLED);
-        } else if (stateSideB == Granule.State.FILLED) {
-            this.granules[checkIndexA].setState(Granule.State.FILLED);
-        } else {
-            if (Math.random() >= 0.5) {
-                this.granules[checkIndexA].setState(Granule.State.FILLED);
-            } else {
-                this.granules[checkIndexB].setState(Granule.State.FILLED);
-            }
-        }
+        flipGranule(Granule.State.EMPTY);
     }
 }

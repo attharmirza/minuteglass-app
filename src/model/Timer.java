@@ -1,5 +1,7 @@
 package model;
 
+import view.*;
+
 /**
  * The core functionality of the hourglass, keeps track of the total number of
  * seconds the minuteglass was initialezed with, and the number of seconds
@@ -81,13 +83,7 @@ public class Timer {
     public void startTimer(int pieces) {
         int interval = this.totalTime / pieces;
 
-        System.out.println("Total Time: " + this.totalTime + "ms");
-        System.out.println("Pieces: " + pieces);
-        System.out.println("---------------------");
-        System.out.println("Interval: " + interval + "ms");
-        System.out.println("Pieces Needed: " + this.totalTime / interval + "\n");
-
-        for (int i = 0; i < pieces; i++) {
+        while (remainingTime > 0) {
             this.remainingTime -= interval;
 
             if (timerListener != null) {

@@ -116,11 +116,13 @@ public class Bulb extends JPanel {
      * tightens near the bottom.
      */
     private void createTopBulb() {
+        Bulb.totalSand = 0;
+
         for (int i = 0; i < Bulb.bulbHeight; i++) {
             int rowCapacity;
             Row rowToBeAdded;
 
-            if (i > Bulb.bulbHeight - funnelShape.length - 1) {
+            if (i >= Bulb.bulbHeight - funnelShape.length) {
                 rowCapacity = funnelShape[i + funnelShape.length - Bulb.bulbHeight];
 
                 rowToBeAdded = new Row(rowCapacity, Row.State.FILLED);

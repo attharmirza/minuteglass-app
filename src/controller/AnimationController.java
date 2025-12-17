@@ -1,8 +1,7 @@
 package controller;
 
 import view.*;
-import model.TimerListener;
-import model.Timer;
+import model.*;
 
 /**
  * This class is my best attempt at following the Model-View-Controller pattern.
@@ -30,12 +29,6 @@ public class AnimationController implements TimerListener {
      * The local instance of the Timer that is driving this animation.
      */
     private Timer timer;
-
-    /**
-     * The total number of intervals will always be equal to the total capacity of
-     * the Minuteglass.
-     */
-    private int totalTimerIntervals;
 
     /**
      * Single argument constructor for AnimationController, initializes it with a
