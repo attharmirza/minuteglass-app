@@ -55,6 +55,17 @@ public class Timer {
     }
 
     /**
+     * Get remaining time as a nice string.
+     */
+    public String getRemainingTimeAsString() {
+        int totalSeconds = remainingTime / 1000;
+        int minutes = totalSeconds / 60;
+        float seconds = totalSeconds % 60 + (remainingTime % 1000) / 1000f;
+
+        return String.format("Remaining time: %02d:%06.3f", minutes, seconds);
+    }
+
+    /**
      * Set the tick listener for the timer.
      */
     public void setTickListener(TimerListener listener) {

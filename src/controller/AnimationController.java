@@ -87,9 +87,8 @@ public class AnimationController implements TimerListener {
      * Called on each timer tick to animate the next granule.
      */
     public void onTick() {
-        System.out.println("Total intervals: " + this.totalTimerIntervals);
-        System.out.println("Total sand: " + Bulb.getTotalSand());
-
         glass.moveGranule();
+
+        System.out.println(timer.getRemainingTimeAsString());
     }
 }
