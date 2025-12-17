@@ -78,7 +78,7 @@ public class AnimationController implements TimerListener {
      * Start the minuteglass animation.
      */
     public void startAnimation() {
-        System.out.println("Total sand: " + Bulb.getTotalSand());
+        // System.out.println("Total sand: " + Bulb.getTotalSand());
 
         this.timer.setTickListener(this);
 

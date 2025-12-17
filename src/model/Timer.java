@@ -59,7 +59,7 @@ public class Timer {
      */
     public String getRemainingTimeAsString() {
         int totalSeconds = remainingTime / 1000;
-        int minutes = totalSeconds / 60;
+        int minutes = (int) totalSeconds / 60;
         float seconds = totalSeconds % 60 + (remainingTime % 1000) / 1000f;
 
         return String.format("Remaining time: %02d:%06.3f", minutes, seconds);
@@ -81,7 +81,13 @@ public class Timer {
     public void startTimer(int pieces) {
         int interval = this.totalTime / pieces;
 
-        for (int i = 0; i < pieces; i++) {
+        System.out.println("Total Time: " + this.totalTime);
+        System.out.println("Pieces: " + pieces);
+        System.out.println("---------------------");
+        System.out.println("Interval: " + interval);
+        System.out.println("Pieces Needed: " + this.totalTime / interval);
+
+        while (this.remainingTime > 0) {
             this.remainingTime -= interval;
 
             if (tickListener != null) {
