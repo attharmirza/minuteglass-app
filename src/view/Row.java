@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A single row of "sand granules" in the MinuteGlass display.
+ * A single row of "sand granules" in the Minuteglass display.
  */
 public class Row extends JPanel {
     /**

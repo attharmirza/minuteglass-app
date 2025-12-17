@@ -4,7 +4,7 @@ import javax.swing.*;
 
 /**
  * A single "sand granule," which when placed together form a row for the
- * MinuteGlass display.
+ * Minuteglass display.
  */
 public class Granule extends JPanel {
     /**

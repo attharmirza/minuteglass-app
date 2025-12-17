@@ -22,7 +22,7 @@ import model.Timer;
  */
 public class AnimationController implements TimerListener {
     /**
-     * Storing an instance of the MinuteGlass for triggering events.
+     * Storing an instance of the Minuteglass for triggering events.
      */
     private Glass glass;
 
@@ -33,7 +33,7 @@ public class AnimationController implements TimerListener {
 
     /**
      * The total number of intervals will always be equal to the total capacity of
-     * the MinuteGlass.
+     * the Minuteglass.
      */
     private int totalTimerIntervals;
 
@@ -41,7 +41,7 @@ public class AnimationController implements TimerListener {
      * Single argument constructor for AnimationController, initializes it with a
      * default length timer.
      *
-     * @param glass The MinuteGlass to be animated
+     * @param glass The Minuteglass to be animated
      */
     public AnimationController(Glass glass) {
         this.glass = glass;
@@ -52,7 +52,7 @@ public class AnimationController implements TimerListener {
      * Double argument constructor for AnimationController, initializes it with a
      * custom length timer.
      *
-     * @param glass The MinuteGlass to be animated
+     * @param glass The Minuteglass to be animated
      * @param timer The Timer to be used for the animation
      */
     public AnimationController(Glass glass, Timer timer) {
@@ -61,30 +61,12 @@ public class AnimationController implements TimerListener {
     }
 
     /**
-     * Convenience method to set the Timer to be a certain number of minutes.
-     */
-    public void setMinutesTimer(int minutes) {
-        this.timer = new Timer(minutes, 0, 0);
-    }
-
-    /**
-     * Convenience method to set the timer to be a certain number of seconds.
-     */
-    public void setSecondsTimer(int seconds) {
-        this.timer = new Timer(0, seconds, 0);
-    }
-
-    /**
-     * Start the minuteglass animation.
+     * Start the Minuteglass animation.
      */
     public void startAnimation() {
-        // System.out.println("Total sand: " + Bulb.getTotalSand());
+        this.timer.setTimerListener(this);
 
-        this.timer.setTickListener(this);
-
-        this.totalTimerIntervals = Bulb.getTotalSand();
-
-        this.timer.startTimer(totalTimerIntervals);
+        this.timer.startTimer(Bulb.getTotalSand());
     }
 
     /**
@@ -93,6 +75,6 @@ public class AnimationController implements TimerListener {
     public void onTick() {
         glass.moveGranule();
 
-        // System.out.println(timer.getRemainingTimeAsString());
+        System.out.println(timer.getRemainingTimeAsString());
     }
 }

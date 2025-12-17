@@ -3,7 +3,7 @@ import view.Glass;
 import controller.AnimationController;
 
 /**
- * Main class for the MinuteGlass application. It's where the whole thing comes
+ * Main class for the Minuteglass application. It's where the whole thing comes
  * together.
  *
  * @author Atthar Mirza

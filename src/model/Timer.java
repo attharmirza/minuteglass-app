@@ -19,7 +19,7 @@ public class Timer {
     /**
      * Listener that is notified when the timer ticks.
      */
-    private TimerListener tickListener;
+    private TimerListener timerListener;
 
     /**
      * No argument constructor, initializes the Timer to 5 minutes.
@@ -68,8 +68,8 @@ public class Timer {
     /**
      * Set the tick listener for the timer.
      */
-    public void setTickListener(TimerListener listener) {
-        this.tickListener = listener;
+    public void setTimerListener(TimerListener listener) {
+        this.timerListener = listener;
     }
 
     /**
@@ -81,17 +81,17 @@ public class Timer {
     public void startTimer(int pieces) {
         int interval = this.totalTime / pieces;
 
-        System.out.println("Total Time: " + this.totalTime);
+        System.out.println("Total Time: " + this.totalTime + "ms");
         System.out.println("Pieces: " + pieces);
         System.out.println("---------------------");
-        System.out.println("Interval: " + interval);
-        System.out.println("Pieces Needed: " + this.totalTime / interval);
+        System.out.println("Interval: " + interval + "ms");
+        System.out.println("Pieces Needed: " + this.totalTime / interval + "\n");
 
-        while (this.remainingTime > 0) {
+        for (int i = 0; i < pieces; i++) {
             this.remainingTime -= interval;
 
-            if (tickListener != null) {
-                tickListener.onTick();
+            if (timerListener != null) {
+                timerListener.onTick();
             }
 
             try {
