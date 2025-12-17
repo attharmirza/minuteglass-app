@@ -158,13 +158,30 @@ public class Row extends JPanel {
     private void flipGranule(Granule.State targetState) {
         Granule.State oppositeState = targetState == Granule.State.FILLED ? Granule.State.EMPTY : Granule.State.FILLED;
 
-        for (int i = 0; i < this.granules.length; i++) {
-            Granule granule = this.granules[i];
+        int searchDirection = Math.random() >= 0.5 ? 1 : -1;
+
+        int rightIndex = centerIndex;
+        int leftIndex = centerIndex;
+
+        for (int i = 0; i < size; i++) {
+            int index;
+
+            if (i == 0) {
+                index = centerIndex;
+            } else if (i % 2 == 0) {
+                rightIndex++;
+                index = rightIndex;
+            } else {
+                leftIndex--;
+                index = leftIndex;
+            }
+
+            Granule granule = this.granules[index];
 
             if (granule.getState() == targetState) {
                 granule.setState(oppositeState);
 
-                if (i == centerIndex + size / 2) {
+                if (i == size - 1) {
                     this.setState(targetState == Granule.State.FILLED ? Row.State.EMPTY : Row.State.FILLED);
                     return;
                 }
@@ -172,6 +189,7 @@ public class Row extends JPanel {
                 return;
             }
         }
+
     }
 
     /**

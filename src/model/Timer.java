@@ -1,7 +1,5 @@
 package model;
 
-import view.*;
-
 /**
  * The core functionality of the hourglass, keeps track of the total number of
  * seconds the minuteglass was initialezed with, and the number of seconds
